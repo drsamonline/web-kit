@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>web-kit demo</title>
+<style>
+  :root{--bg:#0f1115;--card:#171a21;--ink:#e7e9ee;--mut:#9aa3b2;--line:#252a34;--acc:#22c55e}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  header,main,footer{max-width:680px;margin:0 auto;padding:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+  button{background:var(--acc);color:#06210f;border:0;border-radius:10px;padding:9px 13px;font-weight:600;cursor:pointer;margin:3px}
+  .mut{color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1>web-kit demo</h1>
+  <p class="mut" id="tagline">A tiny app built only from the kit.</p>
+</header>
+<main>
+  <div class="card">
+    <p id="count" class="mut"></p>
+    <button id="inc">Count</button>
+    <button id="theme">Theme</button>
+    <button id="lang">Language</button>
+    <button id="export">Export CSV</button>
+  </div>
+</main>
+<footer class="mut">Built with web-kit · © 2026 Dr Sohil Momin</footer>
+
+<script src="../web-kit.js"></script>
+<script>
+  Loom.theme.apply();
+  Loom.seo.title("web-kit demo");
+  Loom.seo.description("A tiny app built only from web-kit.");
+
+  var n = Loom.storage.get("demo:count", 0);
+  function draw(){ document.getElementById("count").textContent = "Count: " + n; }
+  draw();
+
+  document.getElementById("inc").onclick = function(){ n++; Loom.storage.set("demo:count", n); draw(); };
+  document.getElementById("theme").onclick = function(){ Loom.theme.toggle(); };
+  document.getElementById("lang").onclick = function(){
+    var langs = Loom.i18n.langs();
+    var next = langs[(langs.indexOf(Loom.i18n.lang) + 1) % langs.length];
+    Loom.i18n.setLang(next);
+    document.getElementById("tagline").textContent = Loom.i18n.t("app_ready");
+  };
+  document.getElementById("export").onclick = function(){
+    Loom.csv.download("demo.csv", Loom.csv.toCSV([{ key: "count", value: n }]));
+  };
+</script>
+</body>
+</html>

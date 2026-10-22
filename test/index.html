@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>web-kit tests</title></head>
+<body>
+<h1>web-kit tests</h1>
+<pre id="out"></pre>
+<script src="../web-kit.js"></script>
+<script>
+  var out = [], pass = 0, fail = 0;
+  function ok(name, cond){ (cond ? pass++ : fail++); out.push((cond ? "PASS " : "FAIL ") + name); }
+
+  // storage
+  Loom.storage.set("t", { a: 1 });
+  ok("storage.set/get roundtrip", JSON.stringify(Loom.storage.get("t")) === '{"a":1}');
+  ok("storage.get fallback", Loom.storage.get("nope", "x") === "x");
+  Loom.storage.remove("t");
+  ok("storage.remove", Loom.storage.get("t") === undefined);
+
+  // csv
+  var rows = [{ a: "x", b: 'q,"z"' }, { a: "1", b: "2" }];
+  var csv = Loom.csv.toCSV(rows);
+  var back = Loom.csv.fromCSV(csv);
+  ok("csv roundtrip", back.length === 2 && back[0].b === 'q,"z"' && back[1].a === "1");
+  ok("csv escaping", csv.indexOf('"q,""z"""') !== -1);
+
+  // i18n
+  ok("i18n en", Loom.i18n.t("save") === "Save");
+  Loom.i18n.setLang("hi");
+  ok("i18n hi", Loom.i18n.t("save") === "सहेजें");
+  ok("i18n fallback", Loom.i18n.t("missing_key") === "missing_key");
+  Loom.i18n.setLang("en");
+
+  // ui
+  var e = Loom.ui.el("div", { class: "c", text: "hi" }, ["!"]);
+  ok("ui.el builds", e.className === "c" && e.textContent === "hi!");
+
+  // theme
+  Loom.theme.apply("dark");
+  ok("theme sets attribute", document.documentElement.getAttribute("data-theme") === "dark");
+
+  document.getElementById("out").textContent = out.join("\n") + "\n\n" + pass + " passed, " + fail + " failed";
+  console.log(pass + " passed, " + fail + " failed");
+</script>
+</body>
+</html>
