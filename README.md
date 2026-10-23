@@ -1,7 +1,6 @@
 # web-kit
 
-[![live](https://img.shields.io/badge/live-online-22c55e)](https://drsamonline.github.io/web-kit/)
-[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![test](https://github.com/drsamonline/web-kit/actions/workflows/test.yml/badge.svg)](https://github.com/drsamonline/web-kit/actions/workflows/test.yml)
 
 
 **The shared offline-first runtime for drsamonline apps.** One file, no build
