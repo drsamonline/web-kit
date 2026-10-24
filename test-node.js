@@ -43,6 +43,14 @@ Loom.storage.clear();
 ok(Loom.storage.get("a") === undefined && Loom.storage.get("b") === undefined, "storage clear wipes only namespaced keys");
 
 /* ---- csv ---- */
+{
+  const inj = Loom.csv.toCSV([{ a: "=1+1", b: "-5", c: "@x" }]);
+  ok(inj.indexOf("'=1+1") !== -1, "csv injection: a leading = is neutralised");
+  ok(inj.indexOf("'@x") !== -1, "csv injection: a leading @ is neutralised");
+  ok(inj.indexOf("-5") !== -1 && inj.indexOf("'-5") === -1, "csv injection: a negative NUMBER is left alone");
+  ok(typeof Loom.csv.csvSafe === "function", "csvSafe is exported");
+}
+
 const rows = [{ a: "x", b: 'q,"z"' }, { a: "1", b: "2" }];
 const csv = Loom.csv.toCSV(rows);
 const back = Loom.csv.fromCSV(csv);
