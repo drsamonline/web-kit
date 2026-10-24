@@ -78,7 +78,11 @@
 
   /* ---------- csv ---------- */
   Loom.csv = (function () {
-    function esc(v) { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+    // CSV injection guard: a leading = + - @ (or TAB/CR) is a FORMULA to Excel and
+    // Sheets. Prefix it with an apostrophe - but leave a NUMBER alone, so "-5"
+    // does not become "'-5". (The apps had this guard before the kit did.)
+    function csvSafe(v) { v = v == null ? "" : String(v); return (/^[=+\-@\t\r]/.test(v) && !/^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(v)) ? "'" + v : v; }
+    function esc(v) { v = csvSafe(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
     function parseLine(line) {
       var out = [], cur = "", q = false;
       for (var i = 0; i < line.length; i++) {
@@ -96,6 +100,7 @@
       return out;
     }
     return {
+      csvSafe: csvSafe,
       toCSV: function (rows) {
         if (!rows || !rows.length) return "";
         var cols = Object.keys(rows[0]);
