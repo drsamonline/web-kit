@@ -1,7 +1,7 @@
 // Naughty inputs - indic
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // The everyday Indic case - two-byte characters, characters that change BYTE length when lowercased, RTL, the right-to-left override, the VMware globalization super-string.
 //
