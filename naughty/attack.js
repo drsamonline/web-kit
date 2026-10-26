@@ -1,7 +1,7 @@
 // Naughty inputs - attack
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // Attack classes - script injection, file inclusion, server code injection. Must
 // be INERT after esc() and must never close a tag.
