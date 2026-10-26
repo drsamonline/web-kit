@@ -3,7 +3,7 @@
 // rather than hand-typed, plus five the corpus deliberately cannot express.
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // Split by hazard rather than kept in one file: the full corpus is 742 lines, the
 // curated subset is 133 entries, and a single file of that size is awkward to
