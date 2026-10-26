@@ -1,7 +1,7 @@
 // Naughty inputs - import
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // Import hazards - reserved strings, numeric strings, and MSDOS device names. Must round-trip through JSON and CSV unchanged.
 //
