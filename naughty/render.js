@@ -1,7 +1,7 @@
 // Naughty inputs - render
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // Rendering hazards - quote styles, symbol substitutions, subscripts, and Zalgo's unbounded combining marks.
 //
