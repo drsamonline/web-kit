@@ -1,7 +1,7 @@
 // web-kit icons - a curated inline SVG set, as PATH DATA ONLY.
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // Source: tabler/tabler-icons (MIT). A SUBSET, bundled inline - never the full
 // library (5,200+ icons), never an icon font, never a network fetch. An icon is an
