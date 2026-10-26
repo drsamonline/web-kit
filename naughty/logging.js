@@ -1,7 +1,7 @@
 // Naughty inputs - logging
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // Terminal escape codes - these punish anyone who cats the file. Must be stripped BEFORE logging, not just before rendering.
 //
