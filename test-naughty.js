@@ -3,7 +3,7 @@
  * render, import, search, storage, the file-breakout case, and logging.
  *
  * SPDX-FileCopyrightText: 2026 Dr Sohil Momin
- * SPDX-License-Identifier: MIT
+ * SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
  *
  * Run:  node test-naughty.js        (from the web-kit repo)
  *
