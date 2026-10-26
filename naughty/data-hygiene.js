@@ -1,7 +1,7 @@
 // Naughty inputs - data-hygiene
 //
 // SPDX-FileCopyrightText: 2026 Dr Sohil Momin
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 //
 // Invisible or forbidden characters - C0/C1 controls, whitespace Zs/Zl/Zp, Cf controls, BOMs, plus NUL/LF/CR which blns cannot express.
 //
