@@ -125,6 +125,23 @@
       out.push(cur);
       return out;
     }
+    /* The whole text at once: a quoted field may contain commas, doubled quotes
+       and newlines, so a row is only ended by a newline outside quotes. */
+    function parseRows(text) {
+      var rows = [], row = [], cur = "", q = false, i, ch;
+      for (i = 0; i < text.length; i++) {
+        ch = text[i];
+        if (q) {
+          if (ch === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else { q = false; } }
+          else { cur += ch; }
+        } else if (ch === '"') { q = true; }
+        else if (ch === ",") { row.push(cur); cur = ""; }
+        else if (ch === "\n") { row.push(cur); rows.push(row); row = []; cur = ""; }
+        else { cur += ch; }
+      }
+      if (cur !== "" || row.length) { row.push(cur); rows.push(row); }
+      return rows;
+    }
     return {
       csvSafe: csvSafe,
       toCSV: function (rows) {
@@ -134,14 +151,19 @@
           rows.map(function (r) { return cols.map(function (c) { return esc(r[c]); }).join(","); }).join("\n");
       },
       fromCSV: function (text) {
-        var lines = String(text).replace(/\r/g, "").split("\n").filter(Boolean);
-        if (!lines.length) return [];
-        var cols = parseLine(lines[0]);
-        return lines.slice(1).map(function (l) {
-          var v = parseLine(l), o = {};
-          cols.forEach(function (c, i) { o[c] = v[i]; });
-          return o;
-        });
+        // Split on newlines only where the newline is NOT inside a quoted field.
+        // The old version split the whole text first, so a note with a line break
+        // - which toCSV writes correctly, quoted - came back as two rows with the
+        // rest of the fields lost.
+        var rows = parseRows(String(text).replace(/\r\n?/g, "\n"));
+        if (!rows.length) return [];
+        var cols = rows[0];
+        return rows.slice(1).filter(function (r) { return !(r.length === 1 && r[0] === ""); })
+          .map(function (v) {
+            var o = {};
+            cols.forEach(function (c, i) { o[c] = v[i]; });
+            return o;
+          });
       },
       download: function (filename, text) {
         var blob = new Blob([text], { type: "text/csv;charset=utf-8" });
