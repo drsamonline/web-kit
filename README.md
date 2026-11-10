@@ -52,6 +52,14 @@ block. Nothing else is required.
   switch, CSV export).
 - `test/index.html` — a tiny assertion page; open it and check the console.
 
+## Reading a drift report about this kit
+
+If `kit-drift` reports a vendored copy whose extra names are **`del`** and **`dicts`**,
+nothing has been lost: `del` was renamed **`remove`** and `dicts` was an internal of the
+older i18n. That copy is simply an earlier generation of this kit. Kits are one-way
+(`PROMPTS/retrofit.md`) — a stale copy is a reason to update the **kit**, never to rewire
+an app — so the copy is left alone and the report stands as history, not as a defect.
+
 ## Support
 
 <img src="docs/assets/support-portrait.jpg" width="72" height="72" alt="Dr. Sohil Momin" align="left" style="border-radius:50%;margin-right:1rem">
