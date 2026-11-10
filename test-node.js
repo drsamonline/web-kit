@@ -47,6 +47,13 @@ ok(Loom.storage.get("a") === undefined && Loom.storage.get("b") === undefined, "
   const inj = Loom.csv.toCSV([{ a: "=1+1", b: "-5", c: "@x" }]);
   ok(inj.indexOf("'=1+1") !== -1, "csv injection: a leading = is neutralised");
   ok(inj.indexOf("'@x") !== -1, "csv injection: a leading @ is neutralised");
+  // A quoted field may contain commas, doubled quotes and newlines. toCSV writes
+  // them correctly; fromCSV used to split on every newline and lose the row.
+  const round = [{ note: "line one\nline two", qty: "2" }, { note: 'a, b', qty: "3" }, { note: 'say "hi"', qty: "4" }];
+  const back = Loom.csv.fromCSV(Loom.csv.toCSV(round));
+  ok(back.length === round.length, "csv: a multi-line field is one row, not two", back.length);
+  ok(JSON.stringify(back) === JSON.stringify(round), "csv: toCSV -> fromCSV round-trips", JSON.stringify(back));
+  ok(Loom.csv.fromCSV("a,b\n1,2\n\n3,4").length === 2, "csv: a blank line is still skipped");
   ok(inj.indexOf("-5") !== -1 && inj.indexOf("'-5") === -1, "csv injection: a negative NUMBER is left alone");
   ok(typeof Loom.csv.csvSafe === "function", "csvSafe is exported");
 }
