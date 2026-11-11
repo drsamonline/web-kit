@@ -7,15 +7,18 @@ note below is read out of the kit file, so it cannot describe a function
 that is not there.
 
 ```js
-<script src="icons.js"></script>
-ICONS.<name>(...)
-// or: const ICONS = require('./icons.js')
+<script src="web-kit.js"></script>
+Kit.onupgradeneeded(...)
+// or: const Kit = require('./web-kit.js')
 ```
 
-## The surface (0 entries)
+## The surface (3 entries)
 
 | Name | Arguments | What it does |
 |---|---|---|
+| `Kit.onupgradeneeded` | `()` | — |
+| `Kit.onsuccess` | `()` | — |
+| `Kit.onerror` | `()` | — |
 
 ## Notes
 
